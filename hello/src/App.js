@@ -1,7 +1,27 @@
 import './App.css';
 import React, { Component } from 'react';
 import Customer from './Components/Customer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import { withStyles } from '@material-ui/styles';
 
+import Paper from '@mui/material/Paper';
+
+
+const styles = theme => ({
+  root: {
+    width:'100%',
+  
+    overflowX: "auto"
+  },
+  table: {
+    minWidth:1080
+  }
+
+})
 const customers = [
   {
   'id' : 1,
@@ -31,25 +51,41 @@ const customers = [
 
 class App extends Component{
   render(){
+    const {classes} = this.props;
     return(
-      <div>
-        { 
-          customers.map(c => { 
-           return ( 
-                   <Customer 
-                    key={c.id} 
-                    id={c.id} 
-                    name={c.name} 
-                    image={c.image} 
-                    birthday={c.birthday} 
-                    gender = {c.gender}
-                    job={c.job}
-                    />
-                  ) 
-           }
-          )
-      }
-      </div>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>번호</TableCell>
+              <TableCell>이미지</TableCell>
+              <TableCell>이름</TableCell>
+              <TableCell>생년월일</TableCell>
+              <TableCell>성별</TableCell>
+              <TableCell>직업</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+              { 
+                customers.map(c => { 
+                return ( 
+                        <Customer 
+                          key={c.id} 
+                          id={c.id} 
+                          name={c.name} 
+                          image={c.image} 
+                          birthday={c.birthday} 
+                          gender = {c.gender}
+                          job={c.job}
+                          />
+                        ) 
+                }
+                )
+             }
+             </TableBody>
+        </Table>
+        
+      </Paper>
           
     );
   }
@@ -59,4 +95,4 @@ class App extends Component{
 
 
 
-export default App;
+export default withStyles(styles)(App);
